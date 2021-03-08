@@ -40,7 +40,6 @@ def execute_insert_query(connection, query: list):
 		return cursor.lastrowid
 
 
-
 def create_insert_query(tablename, data) -> list:
 	return [ f""" INSERT INTO {tablename} {tuple(data.keys())} VALUES ({",".join("?" for i in data)} );""",	list(data.values()) ]
 
@@ -69,7 +68,7 @@ def input_values_for_table(tablename) -> dict:
 	return data
 
 
-def add_client(database, table, client: dict):
+def insert_client(database, table, client: dict):
 	connect = create_connection(database)
 	query = create_insert_query(table, client) # создать строку запроса
 	_id_ = execute_insert_query(connect, query)  # выполнить запрос
@@ -97,6 +96,9 @@ def add_client(database, table, client: dict):
 		connect.close()
 		print('возникла ошибка')
 
+def deleteclient(database, table, client: dict):
+	pass
+
 
 
 # порядок записи в таблицы: clients -> adress -> contracts -> products
@@ -117,7 +119,7 @@ new_client = {
 
 
 
-add_client(db, 'clients', new_client)
+insert_client(db, 'clients', new_client)
 				
 
 
